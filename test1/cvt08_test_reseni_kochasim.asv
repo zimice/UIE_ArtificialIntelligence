@@ -1,0 +1,28 @@
+filename = "cvt08_test_zadani_metadata.ImageComments.dcm";
+A = dicomread(filename);
+
+info = dicominfo(filename);
+disp(info.ImageComments); % ukaze zadani a ctu text
+firstImage = dicomread(filename, 'Frames', 1);
+imhist(firstImage); % ukaze histogram
+
+imshow(firstImage);
+coords = firstImage([1, 2]); % souradnice pixelu
+
+pixelValues = [];
+averageGrays = [];
+
+
+for k = 1:info.NumberOfFrames
+    frame = dicomread(filename, 'frames', k);
+    
+    pixelValues(k) = frame(coords(1), coords(2));
+
+    averageGrays(k) = mean(frame(:)); 
+end
+
+[~, sortedIndices] = sort(averageGrays);
+sortedPixelValues = pixelValues(sortedIndices);
+
+message = char(sortedPixelValues);
+disp(message);

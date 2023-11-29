@@ -1,0 +1,3 @@
+Projeďte si prezentaci a vyzkoušejte jednotlivé úlohy.
+Především tu poslední: Hledání nejostřejšího snímku ve videu (video máte ve složce imgs). 
+Zašlete mi vypracovanou úlohu ke kontrole nebo otázky, kdyby něco nebylo zřejmé. Je to nepovinné, ale vězte, že probírané znalosti budete potřebovat.

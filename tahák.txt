@@ -1,0 +1,45 @@
+cv1
+imresize() - změna rozlišení
+mean(image, 3) - pak v MATLABu provedete výpočet průměru přes třetí rozměr (dimenze) matice
+
+cv2 
+cat(3, gray_img, gray_img, gray_img) v MATLABu slouží k spojení tří matic (nebo vektorů) do jedné trojrozměrné matice.
+repmat() v MATLABu slouží k opakování (replikaci) matice nebo vektoru vícekrát v horizontálním a vertikálním směru.
+histeq() rozprostře histogram
+cumsum() - komulativní součet histogramu
+Adaptivní ekvalizace jsem schopen vybrat konktrétní místo poslední přáklad ginput(1)
+
+cv3
+klouzavý průměr
+conv() v MATLABu slouží k provádění konvoluce mezi dvěma vektory nebo mezi vektorem a jádrem (kernel).
+conv2 a imfilter dost podobné imfilter aplikuje filter
+imnoise() - vytvoří šum na obrázku
+mask2 = image2 <= threshold; okud hodnota pixelu v image2 je menší nebo rovna hodnotě threshold, pak se výsledný pixel v binární masce (mask2) nastaví na 1 (nebo true), což označuje, že pixel splňuje podmínku.
+edge(image1, 'canny') v MATLABu slouží k detekci hran v obrázku image1 
+furierova transformace 
+fftshift v MATLABu se používá k posunu frekvenčního spektra, které bylo získáno pomocí diskrétní Fourierovy transformace (DFT). Tento posun se provádí tak, aby nulová frekvence (DC složka) byla umístěna uprostřed spektra.
+práce s videem
+
+cv4
+průhlednost obrázku
+filtrace ve spektru
+
+cv5
+graythresh(img_gray) v MATLABu slouží k výpočtu optimálního prahu pro binární segmentaci šedotónového (černobílého) obrázku.
+kmeans v MATLABu k provedení shlukování dat. kmeans je algoritmus pro shlukování, který se používá k rozdělení dat do určeného počtu shluků na základě podobnosti mezi daty
+rgb2hsv
+imdilate je funkce pro dilataci obrazu, což je jeden z operátorů matematické morfologie. Dilatace zvětšuje objekty v binárním obrazu a spojuje sousedící bílé oblasti.
+imfill(cell_imdilate,"holes"); vyplní díry
+imclearborder(cell_fill) odstraní objekty které se dotýkají hran
+imerode(cell_cler, se) v MATLABu provádí erozi binárního obrazu cell_cler za použití strukturálního elementu se. Eroze je jednou z operací matematické morfologie a slouží k redukci velikosti a tvaru bílých objektů v binárním obraze.
+bwperim(cell_imerode) v MATLABu se používá k nalezení obrysu (hran) v binárním obrazu
+bwareaopen(BGauto, 1000) v MATLABu slouží k odstranění malých objektů z binárního obrazu které mají plochu menší než 1000 pixelů
+
+cv6
+bwareafilt(fillimg, 15) v MATLABu slouží k filtraci objektů v binárním obrazu fillimg na základě jejich plochy (počtu pixelů). Tato funkce ponechává pouze objekty, které mají plochu rovnu nebo větší než 15 pixelů
+
+cv7
+dicom
+roipoly(img);Uživatel může nakreslit uzavřenou oblast, tzv. oblast zájmu (ROI, Region of Interest), pomocí myši.
+kontury = activecontour(img, mask,200,"Chan-vese");Celkově tento kód umožňuje uživateli nakreslit oblast zájmu na obrázku a poté použít Chan-Vese model aktivního konturu k nalezení hranic objektů v této oblasti.
+squeeze(D) v MATLABu slouží k odstranění jednotkových rozměrů (dimenzí) z pole (matice) 
