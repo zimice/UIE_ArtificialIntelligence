@@ -88,29 +88,51 @@ function out = preprocessData(data)
             img = rgb2gray(img); % Convert to grayscale if RGB
         end
 
-        % Binarize the image
+        % Binarize the image using a global threshold
         threshold = graythresh(img);
         img = imbinarize(img, threshold);
+
+        % Invert the image if necessary to ensure the digit is white and the background is black
 
             img = ~img;
 
 
-        % Extract the digit using regionprops
+        % Remove small objects that are not the digit
+        img = bwareaopen(img, 30);
+
+        % Extract the largest connected component, which is likely the digit
+        img = bwareafilt(img, 1);
+
+        % Find the bounding box around the digit
         props = regionprops(img, 'BoundingBox');
         if ~isempty(props)
-            % Use the bounding box to crop and center the digit
             bbox = props(1).BoundingBox;
             img = imcrop(img, bbox);
         end
 
-        % Resize the cropped image while maintaining aspect ratio
+        % Determine padding to center the digit in a 28x28 image
         [rows, cols] = size(img);
-        desiredSize = max([rows, cols, 28]);  % Ensure the image is at least 28x28
-        padSize = round((desiredSize - [rows, cols]) / 2);
-        img = padarray(img, padSize, 0, 'both');
+        targetSize = 20; % Target size for the digit, to leave some space for padding
+        scaleFactor = min([targetSize / rows, targetSize / cols]);
+        img = imresize(img, scaleFactor); % Resize the image to the target size
 
-        % Resize to 28x28 and convert to uint8 format
-        img = imresize(img, [28 28]);
+        % Calculate padding size to center the digit in the final image
+        [rows, cols] = size(img);
+        padVert = floor((28 - rows) / 2);
+        padHorz = floor((28 - cols) / 2);
+        padSize = [padVert, padHorz];
+
+        % Pad the image to get a final size of 28x28
+        img = padarray(img, padSize, 0, 'pre');
+        img = padarray(img, padSize, 0, 'post');
+        if mod(rows, 2) ~= 0
+            img = padarray(img, [1, 0], 0, 'post');
+        end
+        if mod(cols, 2) ~= 0
+            img = padarray(img, [0, 1], 0, 'post');
+        end
+
+        % Convert to uint8 format
         out{i} = im2uint8(img);
     end
 end
